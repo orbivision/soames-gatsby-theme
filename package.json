@@ -35,6 +35,9 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "gatsby-source-wordpress": "^7.15.0"
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.5",
+    "gatsby-source-wordpress": "^7.15.0",
+    "jquery": "^3.7.1"
   }
 }
