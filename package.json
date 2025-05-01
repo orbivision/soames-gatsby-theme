@@ -30,15 +30,25 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/react": "^18.0.0",
+    "@types/node": "^18.19.86",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
     "@types/react-helmet": "^6.1.11",
-    "typescript": "^5.0.0"
+    "@types/styled-components": "^5.1.34",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@wordpress/block-library": "^9.22.0",
     "bootstrap": "^5.3.5",
+    "gatsby-plugin-image": "^3.14.0",
+    "gatsby-plugin-manifest": "^5.14.0",
+    "gatsby-plugin-react-helmet": "^6.14.0",
+    "gatsby-plugin-sharp": "^5.14.0",
+    "gatsby-source-filesystem": "^5.14.0",
     "gatsby-source-wordpress": "^7.15.0",
+    "gatsby-transformer-sharp": "^5.14.0",
+    "html-react-parser": "^5.2.3",
     "jquery": "^3.7.1",
     "react-helmet": "^6.1.0"
   }
