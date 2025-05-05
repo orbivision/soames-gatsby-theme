@@ -57,8 +57,8 @@ const HeroHeader = ({
         />
         <div className="container">
           <div className="row justify-content-md-center">
-            <div className="soames-white col-md-10">
-              <h1 className="soames-section-title align-center soames-bold pb-3 mbr-fonts-style display-1">
+            <div className="soames-hero-header soames-white col-md-10">
+              <h1 className="soames-section-title align-center soames-bold mbr-fonts-style display-1">
                 {title}
               </h1>
               <div className="soames-section-subtitle align-center soames-light soames-white mbr-fonts-style display-5">

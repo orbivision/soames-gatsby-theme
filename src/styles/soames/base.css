@@ -478,10 +478,16 @@ h6,
 .soames-section-title {
   font-style: normal;
   line-height: 1.2;
+  color: #ffffff;
 }
 
 .soames-section-subtitle {
   line-height: 1.3;
+  color: #ffffff;
+}
+
+.soames-title-bar h2 {
+  color: #ffffff;
 }
 
 .soames-text {
