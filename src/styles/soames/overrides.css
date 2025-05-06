@@ -755,6 +755,10 @@ blockquote {
   padding: 0px;
 }
 
+.soames-footer-list-item {
+  margin-bottom: 6px;
+}
+
 /* Headers */
 .header13 .form-inline input[type="email"],
 .header14 .form-inline input[type="email"] {
@@ -1554,6 +1558,10 @@ section.lazy-placeholder:after {
   color: #c1c1c1 !important;
 }
 
+.soames-title-bar h2 {
+  color: #ffffff;
+}
+
 .soames-title {
   padding-top: 20px;
   padding-bottom: 0px;
@@ -1562,6 +1570,15 @@ section.lazy-placeholder:after {
 
 .soames-title H2 {
   text-align: center;
+}
+
+.soames-section-title {
+  margin-top: 18px;
+  margin-bottom: 12px;
+}
+
+.soames-section-subtitle {
+  margin-top: 0px;
 }
 
 .soames-article {
@@ -1656,6 +1673,10 @@ section.lazy-placeholder:after {
   padding-top: 15px;
   padding-bottom: 0px;
   background-color: #2e2e2e;
+}
+
+.soames-footer h5 {
+  color: #ffffff;
 }
 
 @media (max-width: 767px) {

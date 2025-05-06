@@ -46,16 +46,14 @@ const FooterMenu: React.FC = () => {
         {data.wpMenu.menuItems.nodes.map((item) =>
           item.parentDatabaseId === 0 ? (
             item.uri.includes("http") ? (
-              <li key={item.id}>
+              <li className="soames-footer-list-item" key={item.id}>
                 <a href={item.uri} target="_blank" rel="noreferrer">
                   {item.label}
                 </a>
-                <br />
               </li>
             ) : (
-              <li key={item.id}>
+              <li className="soames-footer-list-item" key={item.id}>
                 <Link to={item.uri}>{item.label}</Link>
-                <br />
               </li>
             )
           ) : null

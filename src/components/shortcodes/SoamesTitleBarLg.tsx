@@ -37,7 +37,7 @@ const SoamesTitleBarLg: React.FC<SoamesTitleBarLgProps> = ({ title, attributes }
         <div className="container">
           <div className="row justify-content-md-center">
             <div className="soames-white col-md-10">
-              <h1 className="soames-section-title align-center soames-bold pb-3 mbr-fonts-style display-1">
+              <h1 className="soames-section-title align-center soames-bold mbr-fonts-style display-1">
                 {title}
               </h1>
               {subtitle && (
