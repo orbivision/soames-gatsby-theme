@@ -1008,7 +1008,7 @@ section.lazy-placeholder:after {
   }
 
   .soames-features .media-container-row {
-    -webkit-flex-direction: row-reverse;
+    -webkit-flex-direction: row;
   }
 }
 
