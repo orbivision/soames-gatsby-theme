@@ -51,9 +51,7 @@ const Layout: React.FC<LayoutProps> = ({ isHomePage = false, children }) => {
         />
       </Helmet>
       <main>
-        <Header title={title} isHomePage={isHomePage} />
         {children}
-        <Footer title={title} />
       </main>
     </div>
   );
