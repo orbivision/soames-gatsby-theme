@@ -1067,15 +1067,17 @@ section.lazy-placeholder:after {
 
 .soames-blog-roll h4 {
   font-weight: 500;
-  margin-bottom: 0;
+  margin: 0;
   text-align: left;
-  padding-top: 2rem;
+  padding-top: 36px;
+  padding-bottom: 0;
 }
 
 .soames-blog-roll p {
-  margin-bottom: 0;
+  margin: 0;
   text-align: left;
-  padding-top: 1.5rem;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .soames-blog-roll .soames-text {
