@@ -991,7 +991,7 @@ section.lazy-placeholder:after {
 }
 
 .soames-figure {
-  padding-top: 40px;
+  padding-top: 0;
 }
 
 .soames-features .card-img {
@@ -1194,6 +1194,7 @@ section.lazy-placeholder:after {
   flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   padding-left: 0;
+  padding-top: 12px;
 }
 
 .soames-menu .navbar-toggleable-sm .navbar-collapse .navbar-nav .nav-item {
