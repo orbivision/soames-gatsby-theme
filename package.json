@@ -1,6 +1,6 @@
 {
   "name": "soames-gatsby-theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A customizable Gatsby theme for personal websites using WordPress as a headless CMS.",
   "main": "dist/gatsby-config.js",
   "scripts": {
