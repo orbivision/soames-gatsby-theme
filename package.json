@@ -4,7 +4,8 @@
   "description": "A customizable Gatsby theme for personal websites using WordPress as a headless CMS.",
   "main": "dist/gatsby-config.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
   "keywords": [
     "gatsby",
@@ -12,18 +13,38 @@
     "wordpress",
     "headless-cms",
     "typescript",
+    "react",
     "blog",
     "personal-site"
   ],
   "author": "Orbi Software",
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orbivision/soames-gatsby-theme"
+  },
+  "bugs": {
+    "url": "https://github.com/orbivision/soames-gatsby-theme/issues"
+  },
+  "homepage": "https://github.com/orbivision/soames-gatsby-theme#readme",
   "files": [
     "dist",
     "src",
+    "static",
+    "gatsby-config.js",
+    "gatsby-node.js",
+    "gatsby-ssr.js",
+    "gatsby-browser.js",
     "README.md",
-    "LICENSE",
-    "package.json"
+    "LICENSE"
   ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "gatsby": "^5.14.3",
     "react": "^18.2.0",
