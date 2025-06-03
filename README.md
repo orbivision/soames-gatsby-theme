@@ -1,4 +1,11 @@
-# Soames Gatsby Theme
+<p align="center">
+  <a href="https://www.gatsbyjs.com">
+    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Soames Gatsby Theme
+</h1>
 
 [![npm version](https://img.shields.io/npm/v/soames-gatsby-theme.svg?style=flat-square)](https://www.npmjs.com/package/soames-gatsby-theme)
 [![license](https://img.shields.io/npm/l/soames-gatsby-theme.svg?style=flat-square)](./LICENSE)
