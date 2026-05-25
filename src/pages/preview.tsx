@@ -88,6 +88,7 @@ const PreviewPage: React.FC = () => {
 
     fetch(wpGraphQLUrl, {
       method: "POST",
+      credentials: token ? "omit" : "include",
       headers: {
         "Content-Type": "application/json",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
