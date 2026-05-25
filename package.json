@@ -1,6 +1,6 @@
 {
   "name": "soames-gatsby-theme",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A customizable Gatsby theme for personal websites using WordPress as a headless CMS.",
   "main": "dist/gatsby-config.js",
   "scripts": {
@@ -64,6 +64,7 @@
     "bootstrap": "^5.3.5",
     "gatsby-plugin-image": "^3.14.0",
     "gatsby-plugin-manifest": "^5.14.0",
+    "gatsby-plugin-netlify": "^5.1.1",
     "gatsby-plugin-react-helmet": "^6.14.0",
     "gatsby-plugin-sharp": "^5.14.0",
     "gatsby-source-filesystem": "^5.14.0",
@@ -71,6 +72,7 @@
     "gatsby-transformer-sharp": "^5.14.0",
     "html-react-parser": "^5.2.3",
     "jquery": "^3.7.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "rimraf": "^3.0.2"
   }
 }

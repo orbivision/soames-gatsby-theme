@@ -25,7 +25,7 @@ const path = require('path');
 const { chunk } = require('lodash');
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
 
   // Fetch posts
   const postsResult = await graphql(`
@@ -86,6 +86,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         previousPostId: previous ? previous.id : null,
         nextPostId: next ? next.id : null,
       },
+    });
+    // Redirect WordPress "View Post" permalink to the Gatsby /blog/ path.
+    // WordPress generates view links using node.uri (e.g. /2024/01/my-post/)
+    // but Gatsby serves posts at /blog/2024/01/my-post/.
+    createRedirect({
+      fromPath: node.uri,
+      toPath: `/blog${node.uri}`,
+      isPermanent: false,
     });
   });
 

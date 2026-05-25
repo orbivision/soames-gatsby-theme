@@ -22,6 +22,7 @@ const themeConfig = (themeOptions: ThemeOptions = {}): GatsbyConfig => {
           url,
         },
       },
+      require.resolve('gatsby-plugin-netlify'),
     ],
   };
 };
