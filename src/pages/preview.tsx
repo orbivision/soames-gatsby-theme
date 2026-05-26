@@ -3,11 +3,20 @@ import parse from "html-react-parser";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import HeroHeader from "../components/HeroHeader";
+import Bio from "../components/Bio";
+import BlogSidebar from "../components/BlogSidebar";
 import { Shortcodes } from "../utils/shortcodes/Shortcodes";
+import "../styles/vendor/wordpress-blocks.css";
 
 interface FeaturedImage {
   sourceUrl?: string;
   altText?: string;
+}
+
+interface BlogHero {
+  title?: string | null;
+  excerpt?: string | null;
+  guid?: string | null;
 }
 
 interface PreviewContent {
@@ -17,6 +26,7 @@ interface PreviewContent {
   excerpt?: string;
   date?: string;
   featuredImage?: FeaturedImage | null;
+  blogHero?: BlogHero | null;
 }
 
 const PreviewPage: React.FC = () => {
@@ -86,19 +96,33 @@ const PreviewPage: React.FC = () => {
     );
   }
 
-  const backgroundImage = content.featuredImage?.sourceUrl ?? null;
-  const backgroundImageTitle = content.title ?? null;
+  const isPost = content.type === "post";
+
+  // For posts, HeroHeader mirrors the Blog archive page hero (matching blog-post.tsx).
+  // For pages, use the page's own title and featured image (matching page.tsx).
+  const heroTitle = isPost
+    ? (content.blogHero?.title ? parse(content.blogHero.title) : "Blog")
+    : (content.title ? parse(content.title) : "Preview");
+  const heroSubhead = isPost
+    ? (content.blogHero?.excerpt ? parse(content.blogHero.excerpt) : "")
+    : (content.excerpt ? parse(content.excerpt) : "");
+  const heroBg = isPost
+    ? (content.blogHero?.guid ?? null)
+    : (content.featuredImage?.sourceUrl ?? null);
+  const heroBgTitle = isPost
+    ? (content.blogHero?.title ?? null)
+    : (content.title ?? null);
 
   return (
     <Layout>
       <Seo title={`Preview: ${content.title ?? ""}`} />
       <HeroHeader
-        title={content.title ? parse(content.title) : "Preview"}
-        subhead={content.excerpt ? parse(content.excerpt) : ""}
-        backgroundImage={backgroundImage}
-        backgroundImageTitle={backgroundImageTitle}
+        title={heroTitle}
+        subhead={heroSubhead}
+        backgroundImage={heroBg}
+        backgroundImageTitle={heroBgTitle}
       />
-      {content.type === "post" ? (
+      {isPost ? (
         <section>
           <div className="media-container-row">
             <div className="col-12 col-lg-8">
@@ -106,17 +130,46 @@ const PreviewPage: React.FC = () => {
                 id="soames-gatsby-content-container"
                 className="soames-gatsby-blog-content"
               >
-                <article className="blog-post">
+                <article
+                  className="blog-post"
+                  itemScope
+                  itemType="http://schema.org/Article"
+                >
                   <header>
-                    <h1>{content.title ? parse(content.title) : ""}</h1>
+                    <h1 itemProp="headline">
+                      {content.title ? parse(content.title) : ""}
+                    </h1>
                     {content.date && <p>{content.date}</p>}
                   </header>
                   {content.content && (
-                    <section className="blog-post-content">
+                    <section
+                      itemProp="articleBody"
+                      className="blog-post-content"
+                    >
                       {parse(content.content)}
                     </section>
                   )}
+                  <hr />
+                  <footer>
+                    <Bio />
+                  </footer>
                 </article>
+              </section>
+            </div>
+            <div className="col-12 col-lg-4">
+              <section
+                id="soames-gatsby-sidebar-container"
+                className="soames-gatsby-sidebar"
+              >
+                {content.featuredImage?.sourceUrl && (
+                  <img
+                    src={content.featuredImage.sourceUrl}
+                    alt={content.featuredImage.altText || ""}
+                    style={{ marginBottom: 50, width: "100%" }}
+                  />
+                )}
+                <h1>Recent Posts</h1>
+                <BlogSidebar postId="" />
               </section>
             </div>
           </div>
