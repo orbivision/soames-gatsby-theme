@@ -4,7 +4,6 @@ export interface HeroHeaderProps {
   title: React.ReactNode;
   subhead?: React.ReactNode;
   backgroundImage?: string | null;
-  backgroundImageTitle?: string | null;
   overlayOpacity?: number;
 }
 
@@ -12,18 +11,10 @@ const HeroHeader = ({
   title,
   subhead,
   backgroundImage,
-  backgroundImageTitle,
   overlayOpacity,
 }: HeroHeaderProps) => {
   if (!backgroundImage) {
     backgroundImage = "https://picsum.photos/1080/720";
-  } else {
-    if (backgroundImageTitle?.includes("_02o_")) overlayOpacity = 0.2;
-    else if (backgroundImageTitle?.includes("_03o_")) overlayOpacity = 0.3;
-    else if (backgroundImageTitle?.includes("_04o_")) overlayOpacity = 0.4;
-    else if (backgroundImageTitle?.includes("_05o_")) overlayOpacity = 0.5;
-    else if (backgroundImageTitle?.includes("_06o_")) overlayOpacity = 0.6;
-    else if (backgroundImageTitle?.includes("_07o_")) overlayOpacity = 0.7;
   }
 
   if (!overlayOpacity) {

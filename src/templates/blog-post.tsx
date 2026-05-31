@@ -32,6 +32,7 @@ interface Post {
 interface Page {
   title?: string | null;
   excerpt?: string | null;
+  overlayOpacity?: string | null;
   featuredImage?: {
     node: {
       guid?: string | null;
@@ -66,7 +67,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({ data }) => {
         title={page?.title ? parse(page.title) : "Blog"}
         subhead={page?.excerpt ? parse(page.excerpt) : ""}
         backgroundImage={page?.featuredImage?.node?.guid || null}
-        backgroundImageTitle={page?.title || null}
+        overlayOpacity={page?.overlayOpacity ? parseFloat(page.overlayOpacity) : undefined}
       />
       <section>
         <div className="media-container-row">
@@ -173,6 +174,7 @@ export const pageQuery = graphql`
     page: wpPage(isPostsPage: { eq: true }) {
       title
       excerpt
+      overlayOpacity
       featuredImage {
         node {
           guid

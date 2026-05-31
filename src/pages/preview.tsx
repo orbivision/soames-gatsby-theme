@@ -17,6 +17,7 @@ interface BlogHero {
   title?: string | null;
   excerpt?: string | null;
   guid?: string | null;
+  overlayOpacity?: string | null;
 }
 
 interface PreviewContent {
@@ -25,6 +26,7 @@ interface PreviewContent {
   content?: string;
   excerpt?: string;
   date?: string;
+  overlayOpacity?: string | null;
   featuredImage?: FeaturedImage | null;
   blogHero?: BlogHero | null;
 }
@@ -109,9 +111,9 @@ const PreviewPage: React.FC = () => {
   const heroBg = isPost
     ? (content.blogHero?.guid ?? null)
     : (content.featuredImage?.sourceUrl ?? null);
-  const heroBgTitle = isPost
-    ? (content.blogHero?.title ?? null)
-    : (content.title ?? null);
+  const heroOpacityStr = isPost
+    ? (content.blogHero?.overlayOpacity ?? null)
+    : (content.overlayOpacity ?? null);
 
   return (
     <Layout>
@@ -120,7 +122,7 @@ const PreviewPage: React.FC = () => {
         title={heroTitle}
         subhead={heroSubhead}
         backgroundImage={heroBg}
-        backgroundImageTitle={heroBgTitle}
+        overlayOpacity={heroOpacityStr ? parseFloat(heroOpacityStr) : undefined}
       />
       {isPost ? (
         <section>

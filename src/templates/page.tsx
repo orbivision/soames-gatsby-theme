@@ -16,9 +16,9 @@ type PageTemplateProps = PageProps<{
     title: string;
     excerpt?: string;
     content?: string;
+    overlayOpacity?: string | null;
     featuredImage?: {
       node: {
-        title: string;
         guid: string;
       };
     };
@@ -32,7 +32,7 @@ const Page: React.FC<PageTemplateProps> = ({ data: { page } }) => (
       title={parse(page.title)}
       subhead={page.excerpt ? parse(page.excerpt) : ""}
       backgroundImage={page.featuredImage?.node.guid || null}
-      backgroundImageTitle={page.featuredImage?.node.title || null}
+      overlayOpacity={page.overlayOpacity ? parseFloat(page.overlayOpacity) : undefined}
     />
     {page.content && (
       <section
@@ -54,9 +54,9 @@ export const pageQuery = graphql`
       title
       excerpt
       content
+      overlayOpacity
       featuredImage {
         node {
-          title
           guid
         }
       }

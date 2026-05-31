@@ -22,10 +22,10 @@ interface PostNode {
 interface ArchivePage {
   title: string;
   excerpt: string;
+  overlayOpacity?: string | null;
   featuredImage?: {
     node: {
       guid: string;
-      title: string;
     };
   };
 }
@@ -53,7 +53,7 @@ const BlogIndex: React.FC<BlogPostArchiveProps> = ({ data, pageContext }) => {
           title={archive.title ? parse(archive.title) : "Blog"}
           subhead={archive.excerpt ? parse(archive.excerpt) : ""}
           backgroundImage={archive.featuredImage?.node.guid || null}
-          backgroundImageTitle={archive.featuredImage?.node.title || null}
+          overlayOpacity={archive.overlayOpacity ? parseFloat(archive.overlayOpacity) : undefined}
         />
         <p>
           No blog posts found. Add posts to your WordPress site and they'll appear here!
@@ -156,10 +156,10 @@ export const pageQuery = graphql`
     wpPage(isPostsPage: { eq: true }) {
       title
       excerpt
+      overlayOpacity
       featuredImage {
         node {
           guid
-          title
         }
       }
     }
