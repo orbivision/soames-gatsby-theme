@@ -78,7 +78,7 @@ const BlogIndex: React.FC<BlogPostArchiveProps> = ({ data, pageContext }) => {
         title={archive.title ? parse(archive.title) : "Blog"}
         subhead={archive.excerpt ? parse(archive.excerpt) : ""}
         backgroundImage={archive.featuredImage?.node.guid || null}
-        backgroundImageTitle={archive.featuredImage?.node.title || null}
+        overlayOpacity={archive.overlayOpacity ? parseFloat(archive.overlayOpacity) : undefined}
       />
 
       <section className="soames-blog-roll">
