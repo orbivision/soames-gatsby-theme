@@ -1,5 +1,21 @@
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
 
+// Explicitly type SoamesSettings so nullable fields survive Gatsby's inference
+// when all values are null (e.g. a fresh site with no settings configured yet).
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  createTypes(`
+    type SoamesSettings implements Node {
+      logoUrl: String
+      logoAlt: String
+      faviconUrl: String
+      contactBlurb: String
+      companyName: String
+      showCompanyName: Boolean!
+    }
+  `);
+};
+
 // Fetch Soames settings from the WordPress REST API and create a SoamesSettings
 // node. gatsby-source-wordpress does not surface custom WPGraphQL fields added
 // to GeneralSettings, so we use a dedicated REST endpoint instead.
