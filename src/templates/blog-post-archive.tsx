@@ -50,10 +50,10 @@ const BlogIndex: React.FC<BlogPostArchiveProps> = ({ data, pageContext }) => {
       <Layout>
         <Seo title="All posts" />
         <HeroHeader
-          title={archive.title ? parse(archive.title) : "Blog"}
-          subhead={archive.excerpt ? parse(archive.excerpt) : ""}
-          backgroundImage={archive.featuredImage?.node.guid || null}
-          overlayOpacity={archive.overlayOpacity ? parseFloat(archive.overlayOpacity) : undefined}
+          title={archive?.title ? parse(archive.title) : "Blog"}
+          subhead={archive?.excerpt ? parse(archive.excerpt) : ""}
+          backgroundImage={archive?.featuredImage?.node.guid || null}
+          overlayOpacity={archive?.overlayOpacity ? parseFloat(archive.overlayOpacity) : undefined}
         />
         <p>
           No blog posts found. Add posts to your WordPress site and they'll appear here!
@@ -75,10 +75,10 @@ const BlogIndex: React.FC<BlogPostArchiveProps> = ({ data, pageContext }) => {
     <Layout isHomePage>
       <Seo title="All posts" />
       <HeroHeader
-        title={archive.title ? parse(archive.title) : "Blog"}
-        subhead={archive.excerpt ? parse(archive.excerpt) : ""}
-        backgroundImage={archive.featuredImage?.node.guid || null}
-        overlayOpacity={archive.overlayOpacity ? parseFloat(archive.overlayOpacity) : undefined}
+        title={archive?.title ? parse(archive.title) : "Blog"}
+        subhead={archive?.excerpt ? parse(archive.excerpt) : ""}
+        backgroundImage={archive?.featuredImage?.node.guid || null}
+        overlayOpacity={archive?.overlayOpacity ? parseFloat(archive.overlayOpacity) : undefined}
       />
 
       <section className="soames-blog-roll">

@@ -196,4 +196,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     });
   });
+
+  // If no WordPress page is set as the front page (URI = /), create the root
+  // path as a blog archive so fresh sites don't show a 404 at /.
+  const hasFrontPage = pageEdges.some(({ node }) => node.uri === '/');
+  if (!hasFrontPage && postsChunkedIntoArchivePages.length > 0) {
+    createPage({
+      path: '/',
+      component: path.resolve(__dirname, 'src/templates/blog-post-archive.tsx'),
+      context: {
+        offset: 0,
+        postsPerPage,
+        nextPagePath: totalPages > 1 ? `/blog/2` : null,
+        previousPagePath: null,
+      },
+    });
+  }
 };
