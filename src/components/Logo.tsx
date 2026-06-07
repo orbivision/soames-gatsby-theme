@@ -11,12 +11,16 @@ const Logo: React.FC<LogoProps> = ({ title }) => {
       soamesSettings {
         logoUrl
         logoAlt
+        companyName
+        showCompanyName
       }
     }
   `);
 
-  const logoUrl = data.soamesSettings?.logoUrl ?? null;
-  const logoAlt = data.soamesSettings?.logoAlt ?? title;
+  const logoUrl         = data.soamesSettings?.logoUrl ?? null;
+  const logoAlt         = data.soamesSettings?.logoAlt ?? title;
+  const displayName     = data.soamesSettings?.companyName || title;
+  const showCompanyName = data.soamesSettings?.showCompanyName ?? true;
 
   return (
     <div className="menu-logo">
@@ -26,7 +30,7 @@ const Logo: React.FC<LogoProps> = ({ title }) => {
             {logoUrl && (
               <img width="108" alt={logoAlt} src={logoUrl} />
             )}
-            &nbsp;&nbsp;{title}
+            {showCompanyName && <>&nbsp;&nbsp;{displayName}</>}
           </a>
         </span>
       </div>

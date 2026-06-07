@@ -9,7 +9,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, the
   const wpGraphqlUrl = themeOptions.url || process.env.GATSBY_WORDPRESS_URL || '';
   const wpBaseUrl = wpGraphqlUrl.replace(/\/graphql\/?$/, '');
 
-  let settings = { logoUrl: null, logoAlt: null, faviconUrl: null, contactBlurb: null };
+  let settings = { logoUrl: null, logoAlt: null, faviconUrl: null, contactBlurb: null, companyName: null, showCompanyName: true };
 
   if (wpBaseUrl) {
     try {
@@ -23,10 +23,12 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, the
   }
 
   createNode({
-    logoUrl:      settings.logoUrl      ?? null,
-    logoAlt:      settings.logoAlt      ?? null,
-    faviconUrl:   settings.faviconUrl   ?? null,
-    contactBlurb: settings.contactBlurb ?? null,
+    logoUrl:         settings.logoUrl         ?? null,
+    logoAlt:         settings.logoAlt         ?? null,
+    faviconUrl:      settings.faviconUrl      ?? null,
+    contactBlurb:    settings.contactBlurb    ?? null,
+    companyName:     settings.companyName     ?? null,
+    showCompanyName: settings.showCompanyName ?? true,
     id: createNodeId('soames-settings'),
     internal: {
       type: 'SoamesSettings',
