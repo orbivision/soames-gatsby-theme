@@ -5,38 +5,26 @@ interface LogoProps {
   title: string;
 }
 
-interface LogoQueryData {
-  wpMediaItem: {
-    title: string;
-    guid: string;
-  } | null;
-}
-
 const Logo: React.FC<LogoProps> = ({ title }) => {
-  const data = useStaticQuery<LogoQueryData>(graphql`
+  const data = useStaticQuery(graphql`
     query LogoQuery {
-      wpMediaItem(title: { eq: "logo" }) {
-        title
-        guid
+      soamesSettings {
+        logoUrl
+        logoAlt
       }
     }
   `);
 
-  const logo = data.wpMediaItem;
+  const logoUrl = data.soamesSettings?.logoUrl ?? null;
+  const logoAlt = data.soamesSettings?.logoAlt ?? title;
 
   return (
     <div className="menu-logo">
       <div className="navbar-brand">
         <span className="navbar-caption-wrap">
           <a className="navbar-caption text-white display-5" href="/">
-            {logo ? (
-              <img width="108" alt={logo.title} src={logo.guid} />
-            ) : (
-              <img
-                width="108"
-                alt="Orbi Software"
-                src="https://orbivision.net/wp-content/uploads/2023/01/punch_card.png"
-              />
+            {logoUrl && (
+              <img width="108" alt={logoAlt} src={logoUrl} />
             )}
             &nbsp;&nbsp;{title}
           </a>

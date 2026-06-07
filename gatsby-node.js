@@ -1,5 +1,40 @@
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
 
+// Fetch Soames settings from the WordPress REST API and create a SoamesSettings
+// node. gatsby-source-wordpress does not surface custom WPGraphQL fields added
+// to GeneralSettings, so we use a dedicated REST endpoint instead.
+exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }, themeOptions) => {
+  const { createNode } = actions;
+
+  const wpGraphqlUrl = themeOptions.url || process.env.GATSBY_WORDPRESS_URL || '';
+  const wpBaseUrl = wpGraphqlUrl.replace(/\/graphql\/?$/, '');
+
+  let settings = { logoUrl: null, logoAlt: null, faviconUrl: null, contactBlurb: null };
+
+  if (wpBaseUrl) {
+    try {
+      const response = await fetch(`${wpBaseUrl}/wp-json/soames/v1/settings`);
+      if (response.ok) {
+        settings = await response.json();
+      }
+    } catch (e) {
+      console.warn('[Soames] Could not fetch settings from WordPress:', e.message);
+    }
+  }
+
+  createNode({
+    logoUrl:      settings.logoUrl      ?? null,
+    logoAlt:      settings.logoAlt      ?? null,
+    faviconUrl:   settings.faviconUrl   ?? null,
+    contactBlurb: settings.contactBlurb ?? null,
+    id: createNodeId('soames-settings'),
+    internal: {
+      type: 'SoamesSettings',
+      contentDigest: createContentDigest(JSON.stringify(settings)),
+    },
+  });
+};
+
 exports.createResolvers = ({ actions, cache, createNodeId, createResolvers, store, reporter }) => {
   const { createNode } = actions;
   createResolvers({

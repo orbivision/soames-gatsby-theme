@@ -1,4 +1,6 @@
 import React from "react";
+import parse from "html-react-parser";
+import { graphql, useStaticQuery } from "gatsby";
 import FooterMenu from "./FooterMenu";
 
 interface FooterProps {
@@ -6,6 +8,16 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ title }) => {
+  const data = useStaticQuery(graphql`
+    query FooterQuery {
+      soamesSettings {
+        contactBlurb
+      }
+    }
+  `);
+
+  const contactBlurb = data.soamesSettings?.contactBlurb ?? null;
+
   return (
     <section className="soames-footer mt-5">
       <div className="container">
@@ -18,10 +30,14 @@ const Footer: React.FC<FooterProps> = ({ title }) => {
             <FooterMenu />
           </div>
           <div className="col-12 col-md-4 mbr-fonts-style display-7">
-            <h5 className="pb-3">Contact</h5>
-            <p className="soames-text pr-3">
-              fritz followed by ASCII 0x40 followed by the domain name of this site.
-            </p>
+            {contactBlurb && (
+              <>
+                <h5 className="pb-3">Contact</h5>
+                <div className="soames-text pr-3">
+                  {parse(contactBlurb)}
+                </div>
+              </>
+            )}
             <p className="soames-text pt-3">
               © {new Date().getFullYear()} {title}
               <br />
@@ -37,8 +53,6 @@ const Footer: React.FC<FooterProps> = ({ title }) => {
               <a href="https://wordpress.org/" target="_blank" rel="noreferrer">
                 WordPress
               </a>
-              <br />
-              <br />
             </p>
           </div>
           <div className="col-12 col-md-2 mbr-fonts-style display-7">
