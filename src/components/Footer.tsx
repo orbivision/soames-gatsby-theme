@@ -1,22 +1,13 @@
 import React from "react";
 import parse from "html-react-parser";
-import { graphql, useStaticQuery } from "gatsby";
 import FooterMenu from "./FooterMenu";
 
 interface FooterProps {
   title: string;
+  contactBlurb?: string | null;
 }
 
-const Footer: React.FC<FooterProps> = ({ title }) => {
-  const data = useStaticQuery(graphql`
-    query FooterQuery {
-      soamesSettings {
-        contactBlurb
-      }
-    }
-  `);
-
-  const contactBlurb = data.soamesSettings?.contactBlurb ?? null;
+const Footer: React.FC<FooterProps> = ({ title, contactBlurb = null }) => {
 
   return (
     <section className="soames-footer mt-5">
