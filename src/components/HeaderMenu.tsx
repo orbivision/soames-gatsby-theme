@@ -26,7 +26,7 @@ interface MenuNode {
 }
 
 interface WpMenuQueryData {
-  menus: {
+  allWpMenu: {
     nodes: MenuNode[];
   };
 }
@@ -34,7 +34,7 @@ interface WpMenuQueryData {
 const HeaderMenu: React.FC = () => {
   const data = useStaticQuery<WpMenuQueryData>(graphql`
     query WpHeaderMenu {
-      menus {
+      allWpMenu {
         nodes {
           locations
           menuItems {
@@ -60,7 +60,7 @@ const HeaderMenu: React.FC = () => {
     }
   `);
 
-  const menu = data.menus?.nodes.find(m => m.locations?.includes("HEADER"));
+  const menu = data.allWpMenu?.nodes.find(m => m.locations?.includes("HEADER"));
   const items = menu?.menuItems?.nodes ?? [];
 
   return (

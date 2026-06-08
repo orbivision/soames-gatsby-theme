@@ -18,7 +18,7 @@ interface MenuNode {
 }
 
 interface FooterMenuData {
-  menus: {
+  allWpMenu: {
     nodes: MenuNode[];
   };
 }
@@ -26,7 +26,7 @@ interface FooterMenuData {
 const FooterMenu: React.FC = () => {
   const data: FooterMenuData = useStaticQuery(graphql`
     query WpFooterMenu {
-      menus {
+      allWpMenu {
         nodes {
           locations
           menuItems {
@@ -44,7 +44,7 @@ const FooterMenu: React.FC = () => {
     }
   `);
 
-  const menu = data.menus?.nodes.find(m => m.locations?.includes("FOOTER"));
+  const menu = data.allWpMenu?.nodes.find(m => m.locations?.includes("FOOTER"));
   const items = (menu?.menuItems?.nodes ?? []).filter(item => item.parentDatabaseId === 0);
 
   if (items.length === 0) return null;
