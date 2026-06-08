@@ -59,7 +59,7 @@ const HeaderMenu: React.FC = () => {
   return (
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-        {data.wpMenu.menuItems.nodes.map((item) =>
+        {(data.wpMenu?.menuItems?.nodes ?? []).map((item) =>
           item.path !== "/home/" && item.parentDatabaseId === 0 ? (
             item.childItems.nodes.length === 0 ? (
               <li key={item.id} className="nav-item">

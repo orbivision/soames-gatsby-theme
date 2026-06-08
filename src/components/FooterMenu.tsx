@@ -43,7 +43,7 @@ const FooterMenu: React.FC = () => {
   return (
     <div className="soames-footer-content">
       <ul>
-        {data.wpMenu.menuItems.nodes.map((item) =>
+        {(data.wpMenu?.menuItems?.nodes ?? []).map((item) =>
           item.parentDatabaseId === 0 ? (
             item.uri.includes("http") ? (
               <li className="soames-footer-list-item" key={item.id}>
