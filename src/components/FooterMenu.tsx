@@ -50,7 +50,7 @@ const FooterMenu: React.FC = () => {
   if (items.length === 0) return null;
 
   return (
-    <>
+    <div className="soames-footer-content">
       <h5 className="pb-3">Links</h5>
       <ul>
         {items.map(item =>
@@ -67,7 +67,7 @@ const FooterMenu: React.FC = () => {
           )
         )}
       </ul>
-    </>
+    </div>
   );
 };
 
