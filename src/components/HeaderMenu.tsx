@@ -18,36 +18,40 @@ interface MenuItem {
   };
 }
 
+interface MenuNode {
+  locations: string[];
+  menuItems: {
+    nodes: MenuItem[];
+  };
+}
+
 interface WpMenuQueryData {
-  wpMenu: {
-    id: string;
-    name: string;
-    menuItems: {
-      nodes: MenuItem[];
-    };
+  menus: {
+    nodes: MenuNode[];
   };
 }
 
 const HeaderMenu: React.FC = () => {
   const data = useStaticQuery<WpMenuQueryData>(graphql`
     query WpHeaderMenu {
-      wpMenu(name: { eq: "soames-header-menu" }) {
-        id
-        name
-        menuItems {
-          nodes {
-            id
-            label
-            parentDatabaseId
-            path
-            uri
-            order
-            childItems {
-              nodes {
-                id
-                label
-                uri
-                order
+      menus {
+        nodes {
+          locations
+          menuItems {
+            nodes {
+              id
+              label
+              parentDatabaseId
+              path
+              uri
+              order
+              childItems {
+                nodes {
+                  id
+                  label
+                  uri
+                  order
+                }
               }
             }
           }
@@ -56,10 +60,13 @@ const HeaderMenu: React.FC = () => {
     }
   `);
 
+  const menu = data.menus?.nodes.find(m => m.locations?.includes("HEADER"));
+  const items = menu?.menuItems?.nodes ?? [];
+
   return (
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-        {(data.wpMenu?.menuItems?.nodes ?? []).map((item) =>
+        {items.map((item) =>
           item.path !== "/home/" && item.parentDatabaseId === 0 ? (
             item.childItems.nodes.length === 0 ? (
               <li key={item.id} className="nav-item">

@@ -17,7 +17,6 @@ const Footer: React.FC<FooterProps> = ({ title, contactBlurb = null }) => {
             <div className="media-wrap">{` `}</div>
           </div>
           <div className="col-12 col-md-4 mbr-fonts-style display-7">
-            <h5 className="pb-3">Links</h5>
             <FooterMenu />
           </div>
           <div className="col-12 col-md-4 mbr-fonts-style display-7">

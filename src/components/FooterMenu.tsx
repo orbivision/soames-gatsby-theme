@@ -10,56 +10,64 @@ interface MenuItem {
   order: number;
 }
 
+interface MenuNode {
+  locations: string[];
+  menuItems: {
+    nodes: MenuItem[];
+  };
+}
+
 interface FooterMenuData {
-  wpMenu: {
-    id: string;
-    name: string;
-    menuItems: {
-      nodes: MenuItem[];
-    };
+  menus: {
+    nodes: MenuNode[];
   };
 }
 
 const FooterMenu: React.FC = () => {
   const data: FooterMenuData = useStaticQuery(graphql`
     query WpFooterMenu {
-      wpMenu(name: { eq: "soames-footer-menu" }) {
-        id
-        name
-        menuItems {
-          nodes {
-            id
-            label
-            parentDatabaseId
-            path
-            uri
-            order
+      menus {
+        nodes {
+          locations
+          menuItems {
+            nodes {
+              id
+              label
+              parentDatabaseId
+              path
+              uri
+              order
+            }
           }
         }
       }
     }
   `);
 
+  const menu = data.menus?.nodes.find(m => m.locations?.includes("FOOTER"));
+  const items = (menu?.menuItems?.nodes ?? []).filter(item => item.parentDatabaseId === 0);
+
+  if (items.length === 0) return null;
+
   return (
-    <div className="soames-footer-content">
+    <>
+      <h5 className="pb-3">Links</h5>
       <ul>
-        {(data.wpMenu?.menuItems?.nodes ?? []).map((item) =>
-          item.parentDatabaseId === 0 ? (
-            item.uri.includes("http") ? (
-              <li className="soames-footer-list-item" key={item.id}>
-                <a href={item.uri} target="_blank" rel="noreferrer">
-                  {item.label}
-                </a>
-              </li>
-            ) : (
-              <li className="soames-footer-list-item" key={item.id}>
-                <Link to={item.uri}>{item.label}</Link>
-              </li>
-            )
-          ) : null
+        {items.map(item =>
+          item.uri.includes("http") ? (
+            <li className="soames-footer-list-item" key={item.id}>
+              <a href={item.uri} target="_blank" rel="noreferrer">
+                {item.label}
+              </a>
+            </li>
+          ) : (
+            <li className="soames-footer-list-item" key={item.id}>
+              <Link to={item.uri}>{item.label}</Link>
+            </li>
+          )
         )}
       </ul>
-    </div>
+    </>
   );
 };
 
