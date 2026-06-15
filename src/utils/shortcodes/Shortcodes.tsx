@@ -36,20 +36,26 @@ const handleShortcodes: HTMLReactParserOptions["replace"] = (node) => {
       return <SoamesTitle title={domToReact(children, opts)} />;
     }
 
-    if (classes.includes("wp-block-paragraph")) {
-      return (
-        <section className="soames-section article soames-article">
-          <div className="container col-md-10">
-            <div className="inner-container" style={{ width: "100%" }}>
-              <div className="section-text align-center mbr-fonts-style display-7 pb-2">
-                <p className="block-text mbr-fonts-style display-7">
-                  {domToReact(children, opts)}
-                </p>
+    // Gutenberg paragraph blocks render as plain <p> tags (no wp-block-paragraph class in server HTML).
+    // Skip paragraphs whose first child text starts with "[" — those are classic editor shortcodes.
+    if ((node as DomElement).name === "p") {
+      const firstChild = children[0] as any;
+      const isShortcode = firstChild?.type === "text" && firstChild?.data?.trim().startsWith("[");
+      if (!isShortcode) {
+        return (
+          <section className="soames-section article soames-article">
+            <div className="container col-md-10">
+              <div className="inner-container" style={{ width: "100%" }}>
+                <div className="section-text align-center mbr-fonts-style display-7 pb-2">
+                  <p className="block-text mbr-fonts-style display-7">
+                    {domToReact(children, opts)}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      );
+          </section>
+        );
+      }
     }
 
     // --- Custom Soames block mappings ---
