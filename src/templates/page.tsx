@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import HeroHeader from "../components/HeroHeader";
 import { Shortcodes } from "../utils/shortcodes/Shortcodes";
+import RemoveContentAreaPadding from "../components/shortcodes/RemoveContentAreaPadding";
 
 // Gutenberg block styles
 import "../styles/vendor/wordpress-blocks.css";
@@ -39,6 +40,7 @@ const Page: React.FC<PageTemplateProps> = ({ data: { page } }) => (
         id="soames-gatsby-content-container"
         className="soames-gatsby-content"
       >
+        <RemoveContentAreaPadding />
         <Shortcodes>{page.content}</Shortcodes>
       </section>
     )}
