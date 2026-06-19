@@ -17,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ isHomePage = false, children }) => {
     wp: {
       generalSettings: { title },
     },
-    wpMediaItem,
+    soamesSettings,
   } = useStaticQuery(graphql`
     query LayoutQuery {
       wp {
@@ -26,20 +26,21 @@ const Layout: React.FC<LayoutProps> = ({ isHomePage = false, children }) => {
           description
         }
       }
-      wpMediaItem(title: { eq: "favicon" }) {
-        title
-        guid
+      soamesSettings {
+        faviconUrl
       }
     }
   `);
 
+  const faviconUrl = soamesSettings?.faviconUrl ?? null;
+
   return (
     <div className="global-wrapper" data-is-root-path={isHomePage}>
       <Helmet>
-        {wpMediaItem && (
+        {faviconUrl && (
           <link
             rel="icon"
-            href={wpMediaItem.guid}
+            href={faviconUrl}
             type="image/png"
           />
         )}
