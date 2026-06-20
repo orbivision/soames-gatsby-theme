@@ -1,5 +1,14 @@
 import React from "react";
 
+// New (ORBI-20) grouped format: one object per item.
+interface GalleryMenuItemInput {
+  image: string;
+  label?: string | null;
+  link?: string | null;
+  css?: string | null;
+}
+
+// Legacy format: parallel, index-aligned comma arrays.
 interface GalleryMenuAttributes {
   images: string[];
   links?: string[];
@@ -10,25 +19,43 @@ interface GalleryMenuAttributes {
 interface GalleryMenuItem {
   id: string;
   imageUrl: string;
-  label?: string;
-  link?: string;
-  css?: string;
+  label?: string | null;
+  link?: string | null;
+  css?: string | null;
 }
 
 interface SoamesGalleryMenuProps {
-  attributes: GalleryMenuAttributes;
+  items?: GalleryMenuItemInput[];
+  attributes?: GalleryMenuAttributes;
 }
 
-const SoamesGalleryMenu: React.FC<SoamesGalleryMenuProps> = ({ attributes }) => {
-  const { images, links, labels, css } = attributes;
+const SoamesGalleryMenu: React.FC<SoamesGalleryMenuProps> = ({ items, attributes }) => {
+  const normalizeUrl = (url: string) => (url ?? "").replace(/['""]+/g, '"');
 
-  const menuItems: GalleryMenuItem[] = images.map((image, i) => ({
-    id: `icon_${i}`,
-    imageUrl: image.replace(/['""]+/g, '"'),
-    label: labels?.[i],
-    link: links?.[i],
-    css: css?.[i],
-  }));
+  let menuItems: GalleryMenuItem[];
+  if (items && items.length) {
+    menuItems = items.map((it, i) => ({
+      id: `icon_${i}`,
+      imageUrl: normalizeUrl(it.image),
+      label: it.label ?? null,
+      link: it.link ?? null,
+      css: it.css ?? null,
+    }));
+  } else if (attributes) {
+    const { images, links, labels, css } = attributes;
+    menuItems = (images ?? []).map((image, i) => ({
+      id: `icon_${i}`,
+      imageUrl: normalizeUrl(image),
+      label: labels?.[i] ?? null,
+      link: links?.[i] ?? null,
+      css: css?.[i] ?? null,
+    }));
+  } else {
+    menuItems = [];
+  }
+
+  // Drop rows with no image (e.g. a trailing comma in the legacy format).
+  menuItems = menuItems.filter((item) => item.imageUrl.trim().length > 0);
 
   return (
     <section className="features1 soames-gallery-menu">
@@ -38,7 +65,7 @@ const SoamesGalleryMenu: React.FC<SoamesGalleryMenuProps> = ({ attributes }) => 
             <div key={menuItem.id} className="card p-3 col-md-12 col-lg-3">
               <div className="card-wrapper">
                 <div className="card-img">
-                  <a href={menuItem.link}>
+                  <a href={menuItem.link ?? "#"}>
                     <img
                       src={menuItem.imageUrl}
                       alt={menuItem.label ?? ""}

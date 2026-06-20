@@ -143,6 +143,15 @@ const handleShortcodes: HTMLReactParserOptions["replace"] = (node) => {
 
     if (classes.includes("wp-block-soames-gallery-menu")) {
       const attrs = (node as DomElement).attribs;
+      // ORBI-20: prefer JSON `data-items`, fall back to legacy comma attrs.
+      if (attrs["data-items"]) {
+        try {
+          const items = JSON.parse(attrs["data-items"]);
+          if (Array.isArray(items)) return <SoamesGalleryMenu items={items} />;
+        } catch {
+          /* malformed JSON — fall through to legacy parsing below */
+        }
+      }
       const csv = (key: string) => (attrs[key] ?? "").split(",");
       return (
         <SoamesGalleryMenu
