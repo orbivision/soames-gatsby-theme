@@ -79,6 +79,16 @@ const handleShortcodes: HTMLReactParserOptions["replace"] = (node) => {
 
     if (classes.includes("wp-block-soames-icon-list")) {
       const attrs = (node as DomElement).attribs;
+      // ORBI-20: new blocks emit JSON `data-items`; old blocks/shortcodes use
+      // positional comma attrs. Prefer items, fall back to the legacy arrays.
+      if (attrs["data-items"]) {
+        try {
+          const items = JSON.parse(attrs["data-items"]);
+          if (Array.isArray(items)) return <SoamesIconList items={items} />;
+        } catch {
+          /* malformed JSON — fall through to legacy parsing below */
+        }
+      }
       const csv = (key: string) => (attrs[key] ?? "").split(",");
       return (
         <SoamesIconList
