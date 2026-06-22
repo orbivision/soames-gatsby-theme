@@ -5,9 +5,10 @@ import FooterMenu from "./FooterMenu";
 interface FooterProps {
   title: string;
   contactBlurb?: string | null;
+  companyName?: string | null;
 }
 
-const Footer: React.FC<FooterProps> = ({ title, contactBlurb = null }) => {
+const Footer: React.FC<FooterProps> = ({ title, contactBlurb = null, companyName = null }) => {
 
   return (
     <section className="soames-footer mt-5">
@@ -29,7 +30,7 @@ const Footer: React.FC<FooterProps> = ({ title, contactBlurb = null }) => {
               </>
             )}
             <p className="soames-text pt-3">
-              © {new Date().getFullYear()} {title}
+              © {new Date().getFullYear()} {companyName || title}
               <br />
               Built with{" "}
               <a href="https://www.soames.app" target="_blank" rel="noreferrer">
